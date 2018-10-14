@@ -293,9 +293,9 @@ $(document).on 'rails_admin.dom_ready', (e, content) ->
             authenticity_token: $('meta[name=csrf-token]').attr('content')
 
         $(@).addClass('froala-wysiwyged')
-        $(@).editable(config_options)
+        $(@).froalaEditor(config_options)
         if uploadEnabled
-          $(@).on 'editable.imageError', (e, editor, error) ->
+          $(@).on 'froalaEditor.imageError', (e, editor, error) ->
             alert("error uploading image: " + error.message);
             # Custom error message returned from the server.
             if error.code == 0
@@ -325,7 +325,7 @@ $(document).on 'rails_admin.dom_ready', (e, content) ->
 
             return
 
-          .on('editable.afterRemoveImage', (e, editor, $img) ->
+          .on('froalaEditor.afterRemoveImage', (e, editor, $img) ->
             # Set the image source to the image delete params.
             editor.options.imageDeleteParams =
               src: $img.attr('src')
@@ -333,9 +333,9 @@ $(document).on 'rails_admin.dom_ready', (e, content) ->
             # Make the delete request.
             editor.deleteImage $img
             return
-          ).on('editable.imageDeleteSuccess', (e, editor, data) ->
+          ).on('froalaEditor.imageDeleteSuccess', (e, editor, data) ->
             # handle success
-          ).on 'editable.imageDeleteError', (e, editor, error) ->
+          ).on 'froalaEditor.imageDeleteError', (e, editor, error) ->
             # handle error
             alert("error deleting image: " + error.message);
 
